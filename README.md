@@ -1,12 +1,11 @@
-# pimatic-websolarlog
+# pimatic-fronius-solar
 
-[![npm version](https://badge.fury.io/js/pimatic-websolarlog.svg)](http://badge.fury.io/js/pimatic-websolarlog)
+[![npm version](https://badge.fury.io/js/pimatic-fronius-solar.svg)](http://badge.fury.io/js/pimatic-fronius-solar)
 
-Pimatic Plugin for WebSolarLog (WSL), an open-source data logger for PV systems - <http://www.websolarlog.com>.
+Pimatic Plugin to access PV live logs using the Fronius Solar API - <http://www.fronius.com>.
 
 Note, this is an early version of the plugin provided for testing purposes. Please provide feedback via 
-[github](https://github.com/mwittig/node-websolarlog/issues) or 
-[pimatic-forum](http://forum.pimatic.org/category/13/plugins).
+[github](https://github.com/mwittig/node-fronius-solar/issues).
 
 ## Configuration
 
@@ -16,26 +15,26 @@ property `debug` to true. This will write additional debug messages to the pimat
 properties `interval` and `debug` represent the the default values. 
 
     {
-          "plugin": "websolarlog",
-          "interval": 30,
+          "plugin": "fronius-solar",
+          "interval": 60,
           "debug": false
     },
 
 Then you need to add a device in the `devices` section. Currently, only the following device type is supported:
 
-* WebSolarProduction: This type is for solar power production devices. It provides attributes for the current 
-  power produced,
+* FroniusInverterRealtimeData: This type is to obatin the realtime measurements data for an inverter device
   
-As part of the device definition you need to provide the `deviceName` which is the name of the Production Device 
-as it has been set via WebSolarLog Admin. You also need to provide the `url` for the Live page of your WebSolarLog
-server.
+As part of the device definition you need to provide the `deviceId` which is the number of the inverter devices 
+according to your PV system setup. You also need to provide host and port of the device proving Solar API, which is 
+either your inverter (Fronius Galvo and Fronius Symo inverter models) or a  Fronius Datamanager.
 
     {
-          "id": "wsl1",
-          "class": "WebSolarLogProduction",
-          "name": "WSL Test",
-          "deviceName": "Diehl",
-          "url": "http://diehl-inverter-demo.websolarlog.com/api.php/Live",
+          "id": "fronius1",
+          "class": "FroniusInverterRealtimeData",
+          "name": "Fronius Inverter",
+          "host": "fronius.fritz.box",
+          "port": 8001,
+          "deviceId": 1
     }
 
 ## Contributions and Donations
@@ -46,5 +45,5 @@ Contributions to the project are welcome. You can simply fork the project and cr
 
 ## History
 
-* 20150417, V0.0.1
+* 20150514, V0.0.1
     * Initial Version
