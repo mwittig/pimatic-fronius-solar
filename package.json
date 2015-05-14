@@ -1,0 +1,53 @@
+{
+  "name": "pimatic-fronius-solar",
+  "description": "Pimatic Plugin to access PV live logs using the Fronius Solar API",
+  "author": {
+    "name": "Marcus Wittig",
+    "url": "https://github.com/mwittig/pimatic-fronius-solar"
+  },
+  "main": "fronius-solar",
+  "files": [
+    "fronius-solar.coffee",
+    "README.md",
+    "fronius-solar-config-schema.coffee",
+    "device-config-schema.coffee",
+    "LICENSE"
+  ],
+  "version": "0.0.1",
+  "homepage": "https://github.com/mwittig/pimatic-fronius-solar",
+  "keywords": [
+    "pimatic",
+    "SolarView",
+    "Solar Energy",
+    "Photovolatics",
+    "SmartHome",
+    "SmartMeter",
+    "Volkszaehler",
+    "Monitoring",
+    "Metering"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mwittig/pimatic-fronius-solar.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mwittig/pimatic-fronius-solar/issues"
+  },
+  "licenses": [
+    {
+      "type": "GPLv2",
+      "url": "https://github.com/mwittig/pimatic-fronius-solar/blob/master/LICENSE"
+    }
+  ],
+  "configSchema": "fronius-solar-config-schema.coffee",
+  "dependencies": {
+    "node-fronius-solar": ">=0.0.2"
+  },
+  "peerDependencies": {
+    "pimatic": ">0.8.19"
+  },
+  "engines": {
+    "node": ">0.8.x",
+    "npm": ">1.1.x"
+  }
+}
