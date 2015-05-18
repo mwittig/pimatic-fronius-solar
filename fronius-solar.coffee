@@ -51,6 +51,7 @@ module.exports = (env) ->
         port: config.port,
         timeout: Math.min @interval, 20000
       }
+      @_lastError = ""
       super()
       @_scheduleUpdate()
 
@@ -76,11 +77,16 @@ module.exports = (env) ->
         #console.log values
         status = values.Head.Status
         if status.Code is 0
+          @_lastError = ""
           @emit "realtimeData", values
         else
-          env.logger.error "Invalid Status, status code=" + status.Code + ', ' + status.Reason
-      ).catch((error) ->
-        env.logger.error "Unable to get inverter realtime data form device id=" + id + ": " + error.toString()
+          newError = "Invalid Status, status code=" + status.Code + ', ' + status.Reason || "reason unknown"
+          env.logger.error newError if newError isnt @_lastError or @debug
+          @_lastError = newError
+      ).catch((error) =>
+        newError = "Unable to get inverter realtime data from device id=" + id + ": " + error.toString()
+        env.logger.error newError if newError isnt @_lastError or @debug
+        @_lastError = newError
       )
 
     _normalize: (value, lowerRange, upperRange) ->
@@ -88,6 +94,15 @@ module.exports = (env) ->
         return Math.min (Math.max value, lowerRange), upperRange
       else
         return Math.max value lowerRange
+
+    _has: (obj, path) ->
+      return false if not _.isObject obj or not _.isString path
+      keys = path.split '.'
+      for key in keys
+        if not _.isObject obj or not obj.hasOwnProperty key
+          return false
+        obj = obj[key]
+      return true
 
     _setAttribute: (attributeName, value) ->
       if @[attributeName] isnt value
@@ -142,12 +157,12 @@ module.exports = (env) ->
 
       @on 'realtimeData', ((values) ->
         data = values.Body.Data
-        @_setAttribute 'energyToday', Number data.DAY_ENERGY.Value || 0.0
-        @_setAttribute 'energyYear', Number data.YEAR_ENERGY.Value || 0.0
-        @_setAttribute 'energyTotal', Number data.TOTAL_ENERGY.Value || 0.0
-        @_setAttribute 'currentPower', Number data.PAC.Value || 0.0
-        @_setAttribute 'currentAmperage', Number data.PAC.Value || 0.0
-        @_setAttribute 'currentVoltage', Number data.UAC.Value || 0.0
+        @_setAttribute 'energyToday', Number data.DAY_ENERGY.Value  if @_has data, "DAY_ENERGY.Value"
+        @_setAttribute 'energyYear', Number data.YEAR_ENERGY.Value  if @_has data, "YEAR_ENERGY.Value"
+        @_setAttribute 'energyTotal', Number data.TOTAL_ENERGY.Value  if @_has data, "TOTAL_ENERGY.Value"
+        @_setAttribute 'currentPower', Number data.PAC.Value  if @_has data, "PAC.Value"
+        @_setAttribute 'currentAmperage', Number data.IAC.Value  if @_has data, "IAC.Value"
+        @_setAttribute 'currentVoltage', Number data.UAC.Value  if @_has data, "UAC.Value"
       )
       super(@config, @plugin)
 

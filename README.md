@@ -47,3 +47,5 @@ Contributions to the project are welcome. You can simply fork the project and cr
 
 * 20150514, V0.0.1
     * Initial Version
+* 20150518, V0.0.2
+    * Improved error handling

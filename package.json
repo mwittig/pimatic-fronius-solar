@@ -13,7 +13,7 @@
     "device-config-schema.coffee",
     "LICENSE"
   ],
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/mwittig/pimatic-fronius-solar",
   "keywords": [
     "pimatic",
@@ -41,7 +41,7 @@
   ],
   "configSchema": "fronius-solar-config-schema.coffee",
   "dependencies": {
-    "node-fronius-solar": ">=0.0.2"
+    "node-fronius-solar": ">=0.0.3"
   },
   "peerDependencies": {
     "pimatic": ">0.8.19"
