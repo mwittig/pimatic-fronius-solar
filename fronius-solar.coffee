@@ -32,8 +32,8 @@ module.exports = (env) ->
 
       @framework.deviceManager.registerDeviceClass("FroniusInverterRealtimeData", {
         configDef: deviceConfigDef.FroniusInverterRealtimeData,
-        createCallback: (config) =>
-          return new FroniusInverterRealtimeDataDevice(config, this)
+        createCallback: (config, lastState) =>
+          return new FroniusInverterRealtimeDataDevice config, @, lastState
       })
 
 
@@ -152,8 +152,14 @@ module.exports = (env) ->
     currentVoltage: 0.0
 
     # Initialize device by reading entity definition from middleware
-    constructor: (@config, @plugin) ->
+    constructor: (@config, @plugin, lastState) ->
       env.logger.debug("FroniusSolarProductionDevice Initialization") if @debug
+      @energyToday = lastState?.energyToday?.value or 0.0
+      @energyYear = lastState?.energyYear?.value or 0.0
+      @energyTotal = lastState?.energyTotal?.value or 0.0
+      @currentPower = lastState?.currentPower?.value or 0.0
+      @currentAmperage = lastState?.currentAmperage?.value or 0.0
+      @currentVoltage = lastState?.currentVoltage?.value or 0.0
 
       @on 'realtimeData', ((values) ->
         data = values.Body.Data
