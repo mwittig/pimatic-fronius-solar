@@ -49,5 +49,5 @@ Contributions to the project are welcome. You can simply fork the project and cr
     * Initial Version
 * 20150518, V0.0.2
     * Improved error handling
-* 20150518, V0.0.3
+* 20150520 V0.0.3
     * Attribute values are now recovered from DB (lastState) on pimatic startup rather than using zero values
