@@ -10,6 +10,7 @@ module.exports = (env) ->
 
   # Require the nodejs net API
   net = require 'net'
+  i18n = env.require 'i18n'
 
   fronius = require 'node-fronius-solar'
 
@@ -27,7 +28,7 @@ module.exports = (env) ->
     #     
     # 
     init: (app, @framework, @config) =>
-# register devices
+      # register devices
       deviceConfigDef = require("./device-config-schema")
 
       @framework.deviceManager.registerDeviceClass("FroniusInverterRealtimeData", {
@@ -35,7 +36,6 @@ module.exports = (env) ->
         createCallback: (config, lastState) =>
           return new FroniusInverterRealtimeDataDevice config, @, lastState
       })
-
 
   class FroniusBaseDevice extends env.devices.Device
     # Initialize device by reading entity definition from middleware
@@ -78,14 +78,16 @@ module.exports = (env) ->
         status = values.Head.Status
         if status.Code is 0
           @_lastError = ""
-          @emit "realtimeData", values
+          @emit "realtimeData", null, values
         else
           newError = "Invalid Status, status code=" + status.Code + ', ' + status.Reason || "reason unknown"
           env.logger.error newError if newError isnt @_lastError or @debug
+          @emit "realtimeData", newError if newError isnt @_lastError
           @_lastError = newError
       ).catch((error) =>
         newError = "Unable to get inverter realtime data from device id=" + id + ": " + error.toString()
         env.logger.error newError if newError isnt @_lastError or @debug
+        @emit "realtimeData", newError if newError isnt @_lastError
         @_lastError = newError
       )
 
@@ -99,7 +101,7 @@ module.exports = (env) ->
       return false if not _.isObject obj or not _.isString path
       keys = path.split '.'
       for key in keys
-        if not _.isObject obj or not obj.hasOwnProperty key
+        if not _.isObject(obj) or not obj.hasOwnProperty(key)
           return false
         obj = obj[key]
       return true
@@ -113,6 +115,10 @@ module.exports = (env) ->
   class FroniusInverterRealtimeDataDevice extends FroniusBaseDevice
     # attributes
     attributes:
+      status:
+        description: "Device Status"
+        type: "string"
+        acronym: 'STATUS'
       energyToday:
         description: "Energy Yield Today"
         type: "number"
@@ -144,6 +150,7 @@ module.exports = (env) ->
         unit: 'V'
         acronym: 'UAC'
 
+    status: "Unknown"
     energyToday: 0.0
     energyYear: 0.0
     energyTotal: 0.0
@@ -154,24 +161,39 @@ module.exports = (env) ->
     # Initialize device by reading entity definition from middleware
     constructor: (@config, @plugin, lastState) ->
       env.logger.debug("FroniusSolarProductionDevice Initialization") if @debug
+      @status = "Unknown"
       @energyToday = lastState?.energyToday?.value or 0.0
       @energyYear = lastState?.energyYear?.value or 0.0
       @energyTotal = lastState?.energyTotal?.value or 0.0
-      @currentPower = lastState?.currentPower?.value or 0.0
-      @currentAmperage = lastState?.currentAmperage?.value or 0.0
-      @currentVoltage = lastState?.currentVoltage?.value or 0.0
+      @currentPower = 0.0
+      @currentAmperage = 0.0
+      @currentVoltage = 0.0
 
-      @on 'realtimeData', ((values) ->
-        data = values.Body.Data
-        @_setAttribute 'energyToday', Number data.DAY_ENERGY.Value  if @_has data, "DAY_ENERGY.Value"
-        @_setAttribute 'energyYear', Number data.YEAR_ENERGY.Value  if @_has data, "YEAR_ENERGY.Value"
-        @_setAttribute 'energyTotal', Number data.TOTAL_ENERGY.Value  if @_has data, "TOTAL_ENERGY.Value"
-        @_setAttribute 'currentPower', Number data.PAC.Value  if @_has data, "PAC.Value"
-        @_setAttribute 'currentAmperage', Number data.IAC.Value  if @_has data, "IAC.Value"
-        @_setAttribute 'currentVoltage', Number data.UAC.Value  if @_has data, "UAC.Value"
+      @on 'realtimeData', ((error, values) ->
+        if error or not values
+          @_setAttribute 'status', i18n.__("Unknown")
+        else
+          data = values.Body.Data
+          newStatus = "Unknown"
+          if @_has(data, "DeviceStatus.StatusCode") and _.isNumber(data.DeviceStatus.StatusCode)
+            switch data.DeviceStatus.StatusCode
+              when 7 then  newStatus = "Running"
+              when 8 then  newStatus = "Standby"
+              when 9 then  newStatus = "Boot Loading"
+              when 10 then  newStatus = "Error"
+              else newStatus = "Startup"
+
+          @_setAttribute 'status', i18n.__(newStatus)
+          @_setAttribute 'energyToday', Number data.DAY_ENERGY.Value  if @_has data, "DAY_ENERGY.Value"
+          @_setAttribute 'energyYear', Number data.YEAR_ENERGY.Value  if @_has data, "YEAR_ENERGY.Value"
+          @_setAttribute 'energyTotal', Number data.TOTAL_ENERGY.Value  if @_has data, "TOTAL_ENERGY.Value"
+          @_setAttribute 'currentPower', Number data.PAC.Value  if @_has data, "PAC.Value"
+          @_setAttribute 'currentAmperage', Number data.IAC.Value  if @_has data, "IAC.Value"
+          @_setAttribute 'currentVoltage', Number data.UAC.Value  if @_has data, "UAC.Value"
       )
       super(@config, @plugin)
 
+    getStatus: -> Promise.resolve @status
     getEnergyToday: -> Promise.resolve @energyToday
     getEnergyYear: -> Promise.resolve @energyYear
     getEnergyTotal: -> Promise.resolve @energyTotal
