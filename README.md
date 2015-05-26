@@ -55,3 +55,5 @@ Contributions to the project are welcome. You can simply fork the project and cr
     * Added status attribute representing the status of the inverter device
     * Fixed bug "TypeError: Cannot call method 'hasOwnProperty' of undefined"
     * PAC, IAC, UAC are now transient values (not recovered from DB on startup)
+* 20150520, V0.0.5
+    * Nullify IAC, UAC & PAC if no value has been received (inverter shutting down) or an error has occurred

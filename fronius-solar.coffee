@@ -172,6 +172,9 @@ module.exports = (env) ->
       @on 'realtimeData', ((error, values) ->
         if error or not values
           @_setAttribute 'status', i18n.__("Unknown")
+          @_setAttribute 'currentPower', 0.0
+          @_setAttribute 'currentAmperage', 0.0
+          @_setAttribute 'currentVoltage', 0.0
         else
           data = values.Body.Data
           newStatus = "Unknown"
@@ -187,9 +190,9 @@ module.exports = (env) ->
           @_setAttribute 'energyToday', Number data.DAY_ENERGY.Value  if @_has data, "DAY_ENERGY.Value"
           @_setAttribute 'energyYear', Number data.YEAR_ENERGY.Value  if @_has data, "YEAR_ENERGY.Value"
           @_setAttribute 'energyTotal', Number data.TOTAL_ENERGY.Value  if @_has data, "TOTAL_ENERGY.Value"
-          @_setAttribute 'currentPower', Number data.PAC.Value  if @_has data, "PAC.Value"
-          @_setAttribute 'currentAmperage', Number data.IAC.Value  if @_has data, "IAC.Value"
-          @_setAttribute 'currentVoltage', Number data.UAC.Value  if @_has data, "UAC.Value"
+          @_setAttribute 'currentPower', if @_has data, "PAC.Value" then Number data.PAC.Value else 0.0
+          @_setAttribute 'currentAmperage', if @_has data, "IAC.Value" then Number data.IAC.Value else 0.0
+          @_setAttribute 'currentVoltage', if @_has data, "UAC.Value" then Number data.UAC.Value else 0.0
       )
       super(@config, @plugin)
 

@@ -5,6 +5,12 @@
     "name": "Marcus Wittig",
     "url": "https://github.com/mwittig/pimatic-fronius-solar"
   },
+  "contributors": [
+    {
+      "name": "Marcus Wittig",
+      "url": "https://github.com/mwittig"
+    }
+  ],
   "main": "fronius-solar",
   "files": [
     "fronius-solar.coffee",
@@ -13,7 +19,7 @@
     "device-config-schema.coffee",
     "LICENSE"
   ],
-  "version": "0.0.4",
+  "version": "0.0.5",
   "homepage": "https://github.com/mwittig/pimatic-fronius-solar",
   "keywords": [
     "pimatic",
