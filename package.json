@@ -39,12 +39,7 @@
   "bugs": {
     "url": "https://github.com/mwittig/pimatic-fronius-solar/issues"
   },
-  "licenses": [
-    {
-      "type": "GPLv2",
-      "url": "https://github.com/mwittig/pimatic-fronius-solar/blob/master/LICENSE"
-    }
-  ],
+  "license": "GPL-2.0",
   "configSchema": "fronius-solar-config-schema.coffee",
   "dependencies": {
     "node-fronius-solar": ">=0.0.3"

@@ -55,5 +55,8 @@ Contributions to the project are welcome. You can simply fork the project and cr
     * Added status attribute representing the status of the inverter device
     * Fixed bug "TypeError: Cannot call method 'hasOwnProperty' of undefined"
     * PAC, IAC, UAC are now transient values (not recovered from DB on startup)
-* 20150520, V0.0.5
+* 20150526, V0.0.5
     * Nullify IAC, UAC & PAC if no value has been received (inverter shutting down) or an error has occurred
+* 20150623, V0.0.6
+    * Revised license information to provide a SPDX 2.0 license identifier in-line with npm v2.1 guidelines on license
+      metadata - see also https://github.com/npm/npm/releases/tag/v2.10.0
