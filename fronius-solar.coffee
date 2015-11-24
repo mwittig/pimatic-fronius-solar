@@ -45,6 +45,7 @@ module.exports = (env) ->
       @id = config.id
       @name = config.name
       @interval = 1000 * @_normalize config.interval, 10, 86400
+      @threshold = config.threshold
       @options = {
         deviceId: config.deviceId,
         host: config.host,
@@ -81,14 +82,13 @@ module.exports = (env) ->
           @emit "realtimeData", null, values
         else
           newError = "Invalid Status, status code=" + status.Code + ', ' + status.Reason || "reason unknown"
-          env.logger.error newError if newError isnt @_lastError or @debug
           @emit "realtimeData", newError if newError isnt @_lastError
           @_lastError = newError
       ).catch((error) =>
-        newError = "Unable to get inverter realtime data from device id=" + id + ": " + error.toString()
-        env.logger.error newError if newError isnt @_lastError or @debug
-        @emit "realtimeData", newError if newError isnt @_lastError
-        @_lastError = newError
+          newError = "Unable to get inverter realtime data from device id=" + id + ": " + error.toString()
+          @emit "realtimeData", newError if newError isnt @_lastError
+          @_lastError = newError
+
       )
 
     _normalize: (value, lowerRange, upperRange) ->
@@ -171,7 +171,12 @@ module.exports = (env) ->
 
       @on 'realtimeData', ((error, values) ->
         if error or not values
-          @_setAttribute 'status', i18n.__("Unknown")
+          if @currentPower > @threshold
+            @_setAttribute 'status', i18n.__("Error")
+            env.logger.error error
+          else
+            env.logger.debug error if @debug
+            @_setAttribute 'status', i18n.__("Unknown")          
           @_setAttribute 'currentPower', 0.0
           @_setAttribute 'currentAmperage', 0.0
           @_setAttribute 'currentVoltage', 0.0
