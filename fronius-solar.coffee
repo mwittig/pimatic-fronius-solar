@@ -170,7 +170,7 @@ module.exports = (env) ->
 
       @on 'realtimeData', ((error, values) ->
         if error or not values
-          if error and @currentPower > @threshold
+          if error and @currentPower >= @threshold
             @_setAttribute 'status', i18n.__("Error")
             env.logger.error error
           else
