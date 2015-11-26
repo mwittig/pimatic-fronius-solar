@@ -85,10 +85,9 @@ module.exports = (env) ->
           @emit "realtimeData", newError if newError isnt @_lastError
           @_lastError = newError
       ).catch((error) =>
-          newError = "Unable to get inverter realtime data from device id=" + id + ": " + error.toString()
-          @emit "realtimeData", newError if newError isnt @_lastError
-          @_lastError = newError
-
+        newError = "Unable to get inverter realtime data from device id=" + id + ": " + error.toString()
+        @emit "realtimeData", newError if newError isnt @_lastError
+        @_lastError = newError
       )
 
     _normalize: (value, lowerRange, upperRange) ->
@@ -171,7 +170,7 @@ module.exports = (env) ->
 
       @on 'realtimeData', ((error, values) ->
         if error or not values
-          if @currentPower > @threshold
+          if error and @currentPower > @threshold
             @_setAttribute 'status', i18n.__("Error")
             env.logger.error error
           else
