@@ -22,13 +22,13 @@ properties `interval` and `debug` represent the the default values.
 
 Then you need to add a device in the `devices` section. Currently, only the following device type is supported:
 
-* FroniusInverterRealtimeData: This type is to obatin the realtime measurements data for an inverter device
+* FroniusInverterRealtimeData: This type is to obtain the realtime measurements data for an inverter device
   
 As part of the device definition you need to provide the `deviceId` which is the number of the inverter devices 
 according to your PV system setup. You also need to provide host and port of the device proving Solar API, which is 
 either your inverter (Fronius Galvo and Fronius Symo inverter models) or a  Fronius Datamanager.
 
-If you've configured your Fronius inverter to use power save mode, enter the threshold in watt at which power saving is activated. This helps to omit the nightly errors of the unreachable server.
+If you've configured your Fronius inverter to use power save mode, enter the threshold in watts at which power saving is activated. This helps to omit the nightly errors of the unreachable server.
 
     {
           "id": "fronius1",
@@ -63,3 +63,6 @@ Contributions to the project are welcome. You can simply fork the project and cr
 * 20150623, V0.0.6
     * Revised license information to provide a SPDX 2.0 license identifier in-line with npm v2.1 guidelines on license
       metadata - see also https://github.com/npm/npm/releases/tag/v2.10.0
+* 20151127, V0.0.7
+    * Added parameter "threshold" to support the powersave mode of the inverter and to omit errors during 
+      powersave (contributed by @mplessing)

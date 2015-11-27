@@ -19,16 +19,16 @@ module.exports = (env) ->
 
     # ####init()
     # The `init` function is called by the framework to ask your plugin to initialise.
-    #  
+    #
     # #####params:
     #  * `app` is the [express] instance the framework is using.
     #  * `framework` the framework itself
-    #  * `config` the properties the user specified as config for your plugin in the `plugins` 
-    #     section of the config.json file 
-    #     
-    # 
+    #  * `config` the properties the user specified as config for your plugin in the `plugins`
+    #     section of the config.json file
+    #
+    #
     init: (app, @framework, @config) =>
-      # register devices
+# register devices
       deviceConfigDef = require("./device-config-schema")
 
       @framework.deviceManager.registerDeviceClass("FroniusInverterRealtimeData", {
@@ -75,7 +75,7 @@ module.exports = (env) ->
     _requestUpdate: ->
       id = @id
       fronius.GetInverterRealtimeData(@options).then((values) =>
-        #console.log values
+#console.log values
         status = values.Head.Status
         if status.Code is 0
           @_lastError = ""
@@ -175,7 +175,7 @@ module.exports = (env) ->
             env.logger.error error
           else
             env.logger.debug error if @debug
-            @_setAttribute 'status', i18n.__("Unknown")          
+            @_setAttribute 'status', i18n.__("Unknown")
           @_setAttribute 'currentPower', 0.0
           @_setAttribute 'currentAmperage', 0.0
           @_setAttribute 'currentVoltage', 0.0
