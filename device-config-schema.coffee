@@ -19,5 +19,9 @@ module.exports = {
         description: "Polling interval in seconds, value range [10-86400]"
         type: "number"
         default: 60
+      threshold:
+        description: "Threshold for PowerSaveMode of Inverter Device"
+        type: "number"
+        default: 0
   }
 }

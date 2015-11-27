@@ -28,6 +28,8 @@ As part of the device definition you need to provide the `deviceId` which is the
 according to your PV system setup. You also need to provide host and port of the device proving Solar API, which is 
 either your inverter (Fronius Galvo and Fronius Symo inverter models) or a  Fronius Datamanager.
 
+If you've configured your Fronius inverter to use power save mode, enter the threshold in watt at which power saving is activated. This helps to omit the nightly errors of the unreachable server.
+
     {
           "id": "fronius1",
           "class": "FroniusInverterRealtimeData",
@@ -35,6 +37,7 @@ either your inverter (Fronius Galvo and Fronius Symo inverter models) or a  Fron
           "host": "fronius.fritz.box",
           "port": 8001,
           "deviceId": 1
+          "threshold": 50
     }
 
 ## Contributions and Donations
