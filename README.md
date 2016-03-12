@@ -66,3 +66,6 @@ Contributions to the project are welcome. You can simply fork the project and cr
 * 20151127, V0.0.7
     * Added parameter "threshold" to support the powersave mode of the inverter and to omit errors during 
       powersave (contributed by @mplessing)
+* 20160311, V0.0.8      
+    * Fixed _normalize() function missing comma
+    * Updated to node-fronius-solar@0.0.4

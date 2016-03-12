@@ -94,7 +94,7 @@ module.exports = (env) ->
       if upperRange
         return Math.min (Math.max value, lowerRange), upperRange
       else
-        return Math.max value lowerRange
+        return Math.max value, lowerRange
 
     _has: (obj, path) ->
       return false if not _.isObject obj or not _.isString path
