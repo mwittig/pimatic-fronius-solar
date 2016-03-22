@@ -40,16 +40,16 @@ module.exports = (env) ->
   class FroniusBaseDevice extends env.devices.Device
     # Initialize device by reading entity definition from middleware
     constructor: (@config, @plugin) ->
-      @debug = plugin.config.debug;
+      @debug = @plugin.config.debug;
       env.logger.debug("FroniusSolarBaseDevice Initialization") if @debug
-      @id = config.id
-      @name = config.name
-      @interval = 1000 * @_normalize config.interval, 10, 86400
-      @threshold = config.threshold
+      @id = @config.id
+      @name = @config.name
+      @interval = 1000 * @_normalize @config.interval, 10, 86400
+      @threshold = @config.threshold
       @options = {
-        deviceId: config.deviceId,
-        host: config.host,
-        port: config.port,
+        deviceId: @config.deviceId,
+        host: @config.host,
+        port: @config.port,
         timeout: Math.min @interval, 20000
       }
       @_lastError = ""
