@@ -69,3 +69,6 @@ Contributions to the project are welcome. You can simply fork the project and cr
 * 20160311, V0.0.8      
     * Fixed _normalize() function missing comma
     * Updated to node-fronius-solar@0.0.4
+* 20160322, V0.0.9
+    * Fixed compatibility issue with Coffeescript 1.9 as required for pimatic 0.9 (thanks @sweebee)
+    * Updated peerDependencies property for compatibility with pimatic 0.9
