@@ -15,6 +15,7 @@ module.exports = {
       port:
         description: "Port of the device providing the Solar REST Service"
         type: "number"
+        default: 80
       interval:
         description: "Polling interval in seconds, value range [10-86400]"
         type: "number"

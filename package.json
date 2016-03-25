@@ -5,19 +5,29 @@
     "name": "Marcus Wittig",
     "url": "https://github.com/mwittig/pimatic-fronius-solar"
   },
+  "license": "GPL-2.0",
   "contributors": [
     {
       "name": "Marcus Wittig",
       "url": "https://github.com/mwittig"
+    },
+    {
+      "name": "Markus Plessing",
+      "url": "https://github.com/mplessing"
+    },
+    {
+      "name": "Wiebe Nieuwenhuis",
+      "url": "https://github.com/sweebee"
     }
   ],
   "main": "fronius-solar",
   "files": [
-    "fronius-solar.coffee",
-    "README.md",
-    "fronius-solar-config-schema.coffee",
     "device-config-schema.coffee",
-    "LICENSE"
+    "fronius-solar.coffee",
+    "fronius-solar-config-schema.coffee",
+    "HISTORY.md",
+    "LICENSE",
+    "README.md"
   ],
   "version": "0.0.9",
   "homepage": "https://github.com/mwittig/pimatic-fronius-solar",
@@ -39,7 +49,6 @@
   "bugs": {
     "url": "https://github.com/mwittig/pimatic-fronius-solar/issues"
   },
-  "license": "GPL-2.0",
   "configSchema": "fronius-solar-config-schema.coffee",
   "dependencies": {
     "node-fronius-solar": ">=0.0.4"
