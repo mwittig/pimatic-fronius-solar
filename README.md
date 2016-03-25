@@ -50,7 +50,7 @@ Contributions to the project are welcome. You can simply fork the project and cr
 
 ## Release History
 
-See [Release History](https://github.com/mwittig/pimatic-solarview/blob/master/HISTORY.md).
+See [Release History](https://github.com/mwittig/pimatic-fronius-solar/blob/master/HISTORY.md).
 
 ## License
 
