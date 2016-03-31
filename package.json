@@ -51,7 +51,8 @@
   },
   "configSchema": "fronius-solar-config-schema.coffee",
   "dependencies": {
-    "node-fronius-solar": ">=0.0.4"
+    "node-fronius-solar": ">=0.0.6",
+    "pimatic-plugin-commons": "^0.8.8"
   },
   "peerDependencies": {
     "pimatic": ">=0.8.0 <1.0.0"

@@ -30,3 +30,8 @@
     * Added license info to README
     * Updated list of contributors
     * Moved release history to separate file
+* 20160331, V0.0.11
+    * Implemented new devices FroniusComponentsData and FroniusPowerFlowRealtimeData 
+      based on extension node-fronius-solar@0.0.6
+    * Refactoring, now using pimatic-plugin-commons
+    * Updated README

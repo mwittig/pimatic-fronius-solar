@@ -20,25 +20,73 @@ properties `interval` and `debug` represent the the default values.
           "debug": false
     },
 
-Then you need to add a device in the `devices` section. Currently, only the following device type is supported:
+Then you need to add a device in the `devices` section. Currently, the following device types are supported:
 
-* FroniusInverterRealtimeData: This type is to obtain the realtime measurements data for an inverter device
+* `FroniusInverterRealtimeData`: This type is to obtain the measurements data for an inverter device using the 
+  `GetInverterRealtimeData` service call of the Solar API V0/V1
+* `FroniusComponentsData`: This type is to obtain the measurements data for an PV system using an undocumented API 
+  service provided by the Fronius Data Manager provided with Symo inverters. In contrast to the regular 
+  Solar API Calls which do not require authentication, you may need to provide username and password properties 
+  to the options dictionary (if authentication has been enabled
+* `FroniusPowerFlowRealtimeData`: This type is to obtain the measurements data for an PV system using the 
+  `GetInverterRealtimeData` service call of the Solar API V1 which should work with Fronius Data 
+  Manager v3.4.2-1 (and higher)
   
-As part of the device definition you need to provide the `deviceId` which is the number of the inverter devices 
-according to your PV system setup. You also need to provide host and port of the device proving Solar API, which is 
-either your inverter (Fronius Galvo and Fronius Symo inverter models) or a  Fronius Datamanager.
+As part of the `FroniusInverterRealtimeData` device definition you need to provide the `deviceId` which is the number 
+of the inverter devices according to your PV system setup. You also need to provide host of the device providing 
+Solar API, which is either your inverter (Fronius Galvo and Fronius Symo inverter models) or a Fronius Datamanager 
+device. 
 
-If you've configured your Fronius inverter to use power save mode, enter the threshold in watts at which power saving is activated. This helps to omit the nightly errors of the unreachable server.
+For `FroniusComponentsData` and `FroniusPowerFlowRealtimeData` device configuration you can choose which 
+attributes should be exposed by the device. See 
+[device-config-schema](https://github.com/mwittig/pimatic-fronius-solar/blob/master/device-config-schema.coffee) 
+for details. 
+
+If you've configured your Fronius inverter to use power save mode, enter the threshold in watts at which power 
+saving is activated. This helps to omit the nightly errors of the unreachable server.
 
     {
           "id": "fronius1",
           "class": "FroniusInverterRealtimeData",
           "name": "Fronius Inverter",
           "host": "fronius.fritz.box",
-          "port": 80,
           "deviceId": 1
           "threshold": 50
-    }
+    },
+    {
+          "id": "fronius2",
+          "class": "FroniusComponentsData",
+          "name": "Fronius Inverter 2",
+          "host": "fronius.fritz.box",
+          "username": "admin",
+          "password": "admin",
+          "attributes": [
+            "powerGenerate", 
+            "powerLoad", 
+            "powerGrid", 
+            "powerAkkuSum", 
+            "powerPvSum", 
+            "relativeSelfConsumption", 
+            "relativeAutonomy", 
+            "powerSelfConsumption"
+          ]
+        },
+        {
+          "id": "fronius3",
+          "class": "FroniusPowerFlowRealtimeData",
+          "name": "Fronius Inverter 3",
+          "host": "fronius.fritz.box",
+          "attributes": [
+            "mode",
+            "powerGrid",
+            "powerLoad",
+            "powerAkku",
+            "powerGenerate",
+            "energyDay",
+            "energyYear",
+            "energyTotal"
+          ]
+        },
 
 ## Contributions and Donations
 
@@ -47,15 +95,12 @@ If you've configured your Fronius inverter to use power save mode, enter the thr
 Contributions to the project are welcome. You can simply fork the project and create a pull request with your contribution to start with. If you wish to support my work with a donation I'll highly appreciate this. 
 
 
-
 ## Release History
 
 See [Release History](https://github.com/mwittig/pimatic-fronius-solar/blob/master/HISTORY.md).
 
 ## License
 
-Copyright (c) 2016, Marcus Wittig and contributors
+Copyright (c) 2016, Marcus Wittig and contributors. All rights reserved.
 
-All rights reserved.
-
-[AGPL-3.0](https://github.com/mwittig/pimatic-fronius-solar/blob/master/LICENSE)
+[AGPL-3.0 License](https://github.com/mwittig/pimatic-fronius-solar/blob/master/LICENSE).
