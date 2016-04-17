@@ -35,3 +35,5 @@
       based on extension node-fronius-solar@0.0.6
     * Refactoring, now using pimatic-plugin-commons
     * Updated README
+* 20160417, V0.0.12
+    * Added destroy method to cancel an scheduled update when the device is removed or updated

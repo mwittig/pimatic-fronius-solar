@@ -70,23 +70,12 @@ module.exports = (env) ->
       }
       @_lastError = ""
       super()
-      @_scheduleUpdate()
+      process.nextTick () =>
+        @_requestUpdate()
 
-
-    # poll device according to interval
-    _scheduleUpdate: () ->
-      unless typeof @intervalObject is 'undefined'
-        clearInterval(@intervalObject)
-
-      # keep updating
-      if @interval > 0
-        @intervalObject = setInterval(=>
-          @_requestUpdate()
-        , @interval
-        )
-
-      # perform an update now
-      @_requestUpdate()
+    destroy: () ->
+      @base.cancelUpdate()
+      super()
 
     _requestUpdate: ->
       id = @id
@@ -104,6 +93,8 @@ module.exports = (env) ->
         newError = "Unable to get inverter data: " + error.toString()
         @emit "data", newError if newError isnt @_lastError
         @_lastError = newError
+      ).finally(() =>
+        @base.scheduleUpdate @_requestUpdate, @interval
       )
 
     _has: (obj, path) ->
@@ -206,6 +197,9 @@ module.exports = (env) ->
       )
       super(@config, @plugin, "GetInverterRealtimeData")
 
+    destroy: () ->
+      super()
+
     getStatus: -> Promise.resolve @status
     getEnergyToday: -> Promise.resolve @energyToday
     getEnergyYear: -> Promise.resolve @energyYear
@@ -306,6 +300,9 @@ module.exports = (env) ->
             @attributeValues.emit key, value if value?
       )
 
+    destroy: () ->
+      super()
+
   class FroniusPowerFlowRealtimeDataDevice extends FroniusBaseDevice
     attributeTemplates =
       mode:
@@ -393,6 +390,10 @@ module.exports = (env) ->
           for key,value of data
             @attributeValues.emit key, value if value?
       )
+
+    destroy: () ->
+      super()
+
 
   # ###Finally
   # Create a instance of my plugin

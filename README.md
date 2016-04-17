@@ -4,8 +4,7 @@
 
 Pimatic Plugin to access PV live logs using the Fronius Solar API - <http://www.fronius.com>.
 
-Note, this is an early version of the plugin provided for testing purposes. Please provide feedback via 
-[github](https://github.com/mwittig/node-fronius-solar/issues).
+Please provide feedback via [github](https://github.com/mwittig/node-fronius-solar/issues).
 
 ## Configuration
 
