@@ -62,6 +62,7 @@ module.exports = (env) ->
       @threshold = @config.threshold
       @options = {
         deviceId: @config.deviceId
+        version: @config.apiVersion
         host: @config.host
         port: @config.port
         username: @config.username if @config.username?

@@ -12,6 +12,10 @@ module.exports = {
       host:
         description: "IP address or hostname of the device providing the Solar REST Service"
         type: "string"
+      apiVersion:
+        description: "The API Version supported by the data logger device"
+        enum: [0, 1]
+        default: 1
       port:
         description: "Port of the device providing the Solar REST Service"
         type: "number"
