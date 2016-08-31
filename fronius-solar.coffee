@@ -278,7 +278,7 @@ module.exports = (env) ->
 
             @attributeValues.on properties.key, ((value) =>
               @base.debug "Received update for", properties.key, value
-              if value.value? and @attributeValues.values[attributeName] isnt value.value
+              if value.value?
                 @attributeValues.values[attributeName] = value.value
                 @emit attributeName, value.value
             )
@@ -369,7 +369,7 @@ module.exports = (env) ->
 
             @attributeValues.on properties.key, ((value) =>
               @base.debug "Received update for", properties.key, value
-              if @attributeValues.values[attributeName] isnt value
+              if value?
                 @attributeValues.values[attributeName] = value
                 @emit attributeName, value
             )
@@ -388,7 +388,7 @@ module.exports = (env) ->
             @base.error error
         else
           data = values.Body.Data.Site
-          for key,value of data
+          for key, value of data
             @attributeValues.emit key, value if value?
       )
 
