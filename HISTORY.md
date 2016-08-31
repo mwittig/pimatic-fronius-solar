@@ -37,6 +37,9 @@
     * Updated README
 * 20160417, V0.0.12
     * Added destroy method to cancel an scheduled update when the device is removed or updated
-    
 * 20160601, V0.0.13
     * Added support for Fronius API V0 callouts to GetInverterRealtimeData 
+* 20160831, V0.0.14 
+    * Dependency Update
+    * Handle updates of FroniusComponentsData and FroniusPowerFlowRealtimeData device attributes 
+      as continuous values
