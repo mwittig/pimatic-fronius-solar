@@ -284,7 +284,7 @@ module.exports = (env) ->
             )
 
             @_createGetter(attributeName, =>
-              return Promise.resolve @attributeValues[attributeName]
+              return Promise.resolve @attributeValues.values[attributeName]
             )
           else
             @base.error "Configuration Error. No such attribute: #{attributeName} - skipping."
@@ -375,7 +375,7 @@ module.exports = (env) ->
             )
 
             @_createGetter(attributeName, =>
-              return Promise.resolve @attributeValues[attributeName]
+              return Promise.resolve @attributeValues.values[attributeName]
             )
           else
             @base.error "Configuration Error. No such attribute: #{attributeName} - skipping."
