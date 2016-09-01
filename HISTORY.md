@@ -46,3 +46,5 @@
 * 20160901, V0.0.15
     * Fixed creation of getter methods for dynamic attributes of FroniusComponentsData and FroniusPowerFlowRealtimeData 
       which wrong accessor for attribute values, issue #3
+* 20160901, V0.0.16
+    * Fixed updating attribute values for FroniusInverterRealtimeDataDevice, issue #3

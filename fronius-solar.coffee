@@ -146,25 +146,25 @@ module.exports = (env) ->
         unit: 'V'
         acronym: 'UAC'
 
-    status: "Unknown"
-    energyToday: 0.0
-    energyYear: 0.0
-    energyTotal: 0.0
-    currentPower: 0.0
-    currentAmperage: 0.0
-    currentVoltage: 0.0
+    _status: "Unknown"
+    _energyToday: 0.0
+    _energyYear: 0.0
+    _energyTotal: 0.0
+    _currentPower: 0.0
+    _currentAmperage: 0.0
+    _currentVoltage: 0.0
 
     # Initialize device by reading entity definition from middleware
     constructor: (@config, @plugin, lastState) ->
       @debug = @plugin.config.debug ? false
       @base = commons.base @, @config.class unless @base?
-      @status = "Unknown"
-      @energyToday = lastState?.energyToday?.value or 0.0
-      @energyYear = lastState?.energyYear?.value or 0.0
-      @energyTotal = lastState?.energyTotal?.value or 0.0
-      @currentPower = 0.0
-      @currentAmperage = 0.0
-      @currentVoltage = 0.0
+      @_status = "Unknown"
+      @_energyToday = lastState?.energyToday?.value or 0.0
+      @_energyYear = lastState?.energyYear?.value or 0.0
+      @_energyTotal = lastState?.energyTotal?.value or 0.0
+      @_currentPower = 0.0
+      @_currentAmperage = 0.0
+      @_currentVoltage = 0.0
 
       @on 'data', ((error, values) ->
         if error or not values
@@ -201,13 +201,13 @@ module.exports = (env) ->
     destroy: () ->
       super()
 
-    getStatus: -> Promise.resolve @status
-    getEnergyToday: -> Promise.resolve @energyToday
-    getEnergyYear: -> Promise.resolve @energyYear
-    getEnergyTotal: -> Promise.resolve @energyTotal
-    getCurrentPower: -> Promise.resolve @currentPower
-    getCurrentAmperage: -> Promise.resolve @currentAmperage
-    getCurrentVoltage: -> Promise.resolve @currentVoltage
+    getStatus: -> Promise.resolve @_status
+    getEnergyToday: -> Promise.resolve @_energyToday
+    getEnergyYear: -> Promise.resolve @_energyYear
+    getEnergyTotal: -> Promise.resolve @_energyTotal
+    getCurrentPower: -> Promise.resolve @_currentPower
+    getCurrentAmperage: -> Promise.resolve @_currentAmperage
+    getCurrentVoltage: -> Promise.resolve @_currentVoltage
 
   class AttributeContainer extends events.EventEmitter
     constructor: () ->
