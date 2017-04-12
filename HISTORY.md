@@ -48,3 +48,6 @@
       which wrong accessor for attribute values, issue #3
 * 20160901, V0.0.16
     * Fixed updating attribute values for FroniusInverterRealtimeDataDevice, issue #3
+* 20170412, V0.0.17
+    * Updated dependencies
+    * Revised README, updated copyright notice
