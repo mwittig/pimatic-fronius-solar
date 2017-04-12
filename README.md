@@ -2,9 +2,8 @@
 
 [![npm version](https://badge.fury.io/js/pimatic-fronius-solar.svg)](http://badge.fury.io/js/pimatic-fronius-solar)
 
-Pimatic Plugin to access PV live logs using the Fronius Solar API - <http://www.fronius.com>.
-
-Please provide feedback via [github](https://github.com/mwittig/node-fronius-solar/issues).
+Pimatic Plugin to access PV live logs using the [Fronius](http://www.fronius.com) Solar API. This plugin 
+ is based on [node-fronius-solar](https://github.com/mwittig/node-fronius-solar).
 
 ## Configuration
 
@@ -89,10 +88,12 @@ saving is activated. This helps to omit the nightly errors of the unreachable se
 
 ## Contributions and Donations
 
+Contributions to the project are welcome. You can simply fork the project and create a pull request 
+ with your contribution to start with. If you wish to support my work with a donation I'll 
+ highly appreciate this. Please also consider &#x2605; starring 
+ [the project on github](https://github.com/mwittig/pimatic-fronius-solar).
+
 [![PayPal donate button](https://img.shields.io/paypal/donate.png?color=blue)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=E44SSB34CVXP2)
-
-Contributions to the project are welcome. You can simply fork the project and create a pull request with your contribution to start with. If you wish to support my work with a donation I'll highly appreciate this. 
-
 
 ## Release History
 
@@ -100,6 +101,6 @@ See [Release History](https://github.com/mwittig/pimatic-fronius-solar/blob/mast
 
 ## License
 
-Copyright (c) 2016, Marcus Wittig and contributors. All rights reserved.
+Copyright (c) 2016-2017, Marcus Wittig and contributors. All rights reserved.
 
 [AGPL-3.0 License](https://github.com/mwittig/pimatic-fronius-solar/blob/master/LICENSE).
