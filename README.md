@@ -1,5 +1,7 @@
 # pimatic-fronius-solar
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/mwittig/pimatic-fronius-solar.svg)](https://greenkeeper.io/)
+
 [![npm version](https://badge.fury.io/js/pimatic-fronius-solar.svg)](http://badge.fury.io/js/pimatic-fronius-solar)
 
 Pimatic Plugin to access PV live logs using the [Fronius](http://www.fronius.com) Solar API. This plugin 
