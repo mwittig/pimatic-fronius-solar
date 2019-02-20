@@ -101,6 +101,6 @@ See [Release History](https://github.com/mwittig/pimatic-fronius-solar/blob/mast
 
 ## License
 
-Copyright (c) 2016-2017, Marcus Wittig and contributors. All rights reserved.
+Copyright (c) 2016-2019, Marcus Wittig and contributors. All rights reserved.
 
 [AGPL-3.0 License](https://github.com/mwittig/pimatic-fronius-solar/blob/master/LICENSE).
