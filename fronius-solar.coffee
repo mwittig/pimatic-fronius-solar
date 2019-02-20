@@ -298,7 +298,10 @@ module.exports = (env) ->
         else
           data = values.Body.Data
           for key,value of data
-            @attributeValues.emit key, value if value?
+            if value?
+              @attributeValues.emit key, value
+            else if key in ['powerGenerate']
+              @attributeValues.emit key, 0
       )
 
     destroy: () ->
